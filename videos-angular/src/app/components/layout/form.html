@@ -1,0 +1,112 @@
+<div class="container mx-auto my-10">
+  <h1 class="text-center text-5xl font-bold mb-4">{{ page_title }}</h1>
+  <div
+    class="bg-red-400 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+    *ngIf="status.type == 'error'"
+  >
+    <p class="text-center font-bold text-white">{{ status.msg }}</p>
+  </div>
+  <div class="flex flex-col md:flex-row items-center">
+    <div class="md:w-3/5 w-4/5 mt-5 lg:mt-0">
+      <p
+        class="font-light text-2xl text-gray-700"
+        *ngIf="formType == 'register'"
+      >
+        Please fill the next form
+      </p>
+      <form class="mt-4" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div
+          class="mb-3"
+          *ngIf="formType == 'register' || formType == 'update'"
+        >
+          <label for="name" class="block font-bold">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #name="ngModel"
+            [(ngModel)]="user.name"
+            required
+            pattern="[a-zA-ZÀ-ÿ ]+"
+          />
+          <small
+            *ngIf="!name.valid && name.touched"
+            class="text-red-800 font-bold"
+            >Name isn't valid</small
+          >
+        </div>
+        <div
+          class="mb-3"
+          *ngIf="formType == 'register' || formType == 'update'"
+        >
+          <label for="surname" class="block font-bold">Surname</label>
+          <input
+            type="text"
+            id="surname"
+            name="surname"
+            placeholder="Enter your surname"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #surname="ngModel"
+            [(ngModel)]="user.surname"
+            required
+            pattern="[a-zA-ZÀ-ÿ ]+"
+          />
+          <small
+            *ngIf="!surname.valid && surname.touched"
+            class="text-red-800 font-bold"
+            >Surname isn't valid</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="email" class="block font-bold">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #email="ngModel"
+            [(ngModel)]="user.email"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          />
+          <small
+            *ngIf="!email.valid && email.touched"
+            class="text-red-800 font-bold"
+            >Email isn't valid</small
+          >
+        </div>
+        <div class="mb-3" *ngIf="formType != 'update'">
+          <label for="password" class="block font-bold">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            minlength="6"
+            placeholder="Enter your password"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #password="ngModel"
+            [(ngModel)]="user.password"
+            required
+          />
+          <small
+            *ngIf="!password.valid && password.touched"
+            class="text-red-800 font-bold"
+            >Password isn't valid</small
+          >
+        </div>
+        <input
+          type="submit"
+          value="{{ btnSubmit }}"
+          class="mt-5 rounded w-full bg-lime-700 hover:bg-lime-600 px-4 py-3 cursor-pointer font-bold text-white disabled:opacity-25 disabled:cursor-default disabled:hover:bg-lime-700"
+          [disabled]="userForm.invalid"
+        />
+      </form>
+    </div>
+    <div class="md:w-2/5">
+      <img class="w-full" src="{{ imgSectionURL }}" />
+    </div>
+  </div>
+</div>

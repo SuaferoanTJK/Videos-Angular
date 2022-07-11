@@ -1,0 +1,78 @@
+<div class="container mx-auto my-10">
+  <h1 class="text-center text-5xl font-bold mb-4">{{page_title}}</h1>
+  <div
+    class="bg-red-400 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+    *ngIf="status.type == 'error'"
+  >
+    <p class="text-center font-bold text-white">{{ status.msg }}</p>
+  </div>
+  <div class="flex flex-col md:flex-row items-center">
+    <div class="md:w-3/5 w-4/5 mt-5 lg:mt-0">
+      <form class="mt-4" #videoForm="ngForm" (ngSubmit)="onSubmit(videoForm)">
+        <div class="mb-3">
+          <label for="name" class="block font-bold">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter the video's title"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #title="ngModel"
+            [(ngModel)]="video.title"
+            required
+          />
+          <small
+            *ngIf="!title.valid && title.touched"
+            class="text-red-800 font-bold"
+            >Title isn't valid</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="name" class="block font-bold">Description</label>
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter the video's description"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #description="ngModel"
+            [(ngModel)]="video.description"
+          ></textarea>
+          <small
+            *ngIf="!description.valid && description.touched"
+            class="text-red-800 font-bold"
+            >Title isn't valid</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="name" class="block font-bold">Youtube URL</label>
+          <input
+            type="text"
+            id="url"
+            name="url"
+            placeholder="Enter the video's url"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+            #url="ngModel"
+            [(ngModel)]="video.url"
+            required
+          />
+          <small
+            *ngIf="!url.valid && url.touched"
+            class="text-red-800 font-bold"
+            >URL isn't valid</small
+          >
+        </div>
+        <input
+          type="submit"
+          value="{{page_title}}"
+          class="mt-5 rounded w-full bg-lime-700 hover:bg-lime-600 px-4 py-3 cursor-pointer font-bold text-white disabled:opacity-25 disabled:cursor-default disabled:hover:bg-lime-700"
+          [disabled]="videoForm.invalid"
+        />
+      </form>
+    </div>
+    <div class="md:w-2/5">
+      <img class="w-full" src="/assets/images/video.png" alt="img videoForm" />
+    </div>
+  </div>
+</div>

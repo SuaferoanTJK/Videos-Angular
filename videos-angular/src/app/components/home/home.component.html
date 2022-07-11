@@ -1,0 +1,104 @@
+<div class="my-7 flex items-center mt-10" *ngIf="!identity.id">
+  <div class="w-3/4 mx-auto mt-10">
+    <h1 class="text-center text-5xl font-bold text-gray-700">
+      Welcome to Angular Videos
+    </h1>
+    <h3 class="text-center text-xl font-light mt-3">
+      Register in our platform in order to be able to save your favorite videos
+      and be able to see them whenever you desire
+    </h3>
+    <div class="mt-5 flex flex-col md:flex-row gap-4 justify-center">
+      <a
+        routerLink="/register"
+        class="rounded text-lg bg-slate-700 hover:bg-slate-500 text-white py-1 px-3"
+      >
+        Register
+      </a>
+      <a
+        routerLink="/login"
+        class="rounded text-lg bg-slate-700 hover:bg-slate-500 text-white py-1 px-3"
+      >
+        Log in
+      </a>
+    </div>
+  </div>
+</div>
+<div class="my-7 flex flex-col items-center mt-10" *ngIf="identity.id">
+  <h1 class="text-3xl font-bold">My videos</h1>
+  <div
+    class="bg-lime-500 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+    *ngIf="status.type == 'success'"
+  >
+    <p class="text-center font-bold mb-1 text-white">{{ status.msg }}</p>
+  </div>
+  <div
+    class="bg-red-400 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+    *ngIf="status.type == 'error'"
+  >
+    <p class="text-center font-bold text-white">{{ status.msg }}</p>
+  </div>
+  <!-- Videos -->
+  <div class="w-full mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div
+      *ngFor="let video of videos"
+      class="bg-gray-100 border-2 rounded-lg shadow-xl p-4 flex flex-col justify-center items-center"
+    >
+      <h3 class="text-xl text-center mt-1">{{ video.title }}</h3>
+      <div>
+        <img
+          class="w-full object-contain object-center mt-1"
+          src="{{ getThumb(video.url) }}"
+          src="http://img.youtube.com/vi/tzt55UfljGA/0.jpg"
+          alt="thumbnail"
+        />
+      </div>
+      <div class="flex justify-between w-full mt-3 space-x-4">
+        <a
+          href="{{ video.url }}"
+          target="_blank"
+          rel="noreferrer"
+          class="bg-lime-600 hover:bg-lime-500 py-1 flex-1 rounded text-white font-bold text-center"
+          >View</a
+        >
+        <a
+          routerLink="/update-video/{{ video.id }}"
+          class="bg-yellow-600 hover:bg-yellow-500 py-1 flex-1 rounded text-white font-bold text-center"
+          >Edit</a
+        >
+        <button
+          class="bg-red-800 hover:bg-red-700 py-1 flex-1 rounded text-white font-bold text-center"
+          (click)="deleteVideo(video.id)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Pagination -->
+  <nav>
+    <ul class="mt-10 inline-flex -space-x-px">
+      <li>
+        <a
+          routerLink="/home/{{ prev_page }}"
+          class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+          >&laquo;</a
+        >
+      </li>
+      <li>
+        <a
+          *ngFor="let num of number_pages"
+          routerLink="/home/{{ num }}"
+          class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+          >{{ num }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/home/{{ next_page }}"
+          class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+          >&raquo;</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>

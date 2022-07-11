@@ -1,0 +1,45 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# UserController Routes
+register:
+  path: /user/register
+  controller: App\Controller\UserController::register
+  methods: [POST]
+
+login:
+  path: /user/login
+  controller: App\Controller\UserController::login
+  methods: [POST]
+
+updateUser:
+  path: /user/update
+  controller: App\Controller\UserController::update
+  methods: [PUT]
+
+# VideoController Routes
+upload:
+  path: /video/upload
+  controller: App\Controller\VideoController::upload
+  methods: [POST]
+
+updateVideo:
+  path: /video/update/{id}
+  controller: App\Controller\VideoController::upload
+  methods: [PUT]
+
+obtain:
+  path: /video/obtain
+  controller: App\Controller\VideoController::obtain
+  methods: [GET]
+
+detail:
+  path: /video/detail/{id}
+  controller: App\Controller\VideoController::detail
+  methods: [GET]
+
+delete:
+  path: /video/delete/{id}
+  controller: App\Controller\VideoController::delete
+  methods: [DELETE]
